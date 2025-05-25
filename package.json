@@ -1,0 +1,12 @@
+{
+  "name": "duck-hunt-game",
+  "version": "1.0.0",
+  "description": "2D Duck Shooting Game using Node.js and Phaser.js",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
