@@ -33,6 +33,7 @@ let ducksShot = 0;
 let timerEvent;
 let hud;
 let gameOver = false;
+let crosshair;
 
 function preload() {
   // Load duck sprite sheet (replace with your own sprite sheet if available)
@@ -41,6 +42,8 @@ function preload() {
   this.load.audio(SHOT_SOUND, 'assets/shot.wav');
   this.load.audio(QUACK_SOUND, 'assets/quack.wav');
   this.load.audio(FALL_SOUND, 'assets/fall.wav');
+  // Load your crosshair image
+  this.load.image('crosshair', 'assets/crosshair.png');
 }
 
 function create() {
@@ -72,6 +75,15 @@ function create() {
   // Group for ducks
   ducks = this.physics.add.group();
   spawnDucks.call(this);
+
+  // Add crosshair sprite and set its depth above other objects
+  crosshair = this.add.sprite(this.input.activePointer.x, this.input.activePointer.y, 'crosshair');
+  crosshair.setDepth(10);
+  crosshair.setScale(0.5); // Adjust size as needed
+  crosshair.setOrigin(0.5, 0.5);
+
+  // Hide the default cursor
+  this.input.setDefaultCursor('none');
 
   // Mouse click to shoot
   this.input.on('pointerdown', (pointer) => {
@@ -110,6 +122,10 @@ function update() {
       duck.directionY *= -1;
     }
   });
+
+  // Update crosshair position to follow mouse
+  crosshair.x = this.input.activePointer.x;
+  crosshair.y = this.input.activePointer.y;
 }
 
 function spawnDucks() {
